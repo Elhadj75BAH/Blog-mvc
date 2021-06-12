@@ -9,9 +9,10 @@ use App\Model\UsersManager;
  */
 class LoginController extends AbstractController
 {
-    // Connexion
+    // Login
     public function login()
     {
+
         $error = '';
         $userManager = new UsersManager();
 
@@ -21,22 +22,26 @@ class LoginController extends AbstractController
                 'motdepasse' => $_POST['motdepasse']
             ];
             $result = $userManager->checkUserConnection($login);
-
-            if ($result === "User not found") {
-                $error = "User not found";
+          // si pas de resultat
+            if (!$result) {
+                $error = "Aucun utilisateur  trouvé :)";
+            }else{// on verifie si le mot de passe entré est correct
+                if(password_verify($_POST['motdepasse'],$result['motdepasse'])){
+                    if(isset($result['id'])){
+                        $_SESSION['is_connected'] = true;
+                        $_SESSION['id'] = $result['id'];
+                        $_SESSION['nom'] = $result['nom'];
+                        $_SESSION['prenom'] = $result['prenom'];
+                        $_SESSION['email'] = $result['email'];
+                        //echo 'vous êtes connecté '.$_SESSION['nom'];
+                        return $this->twig->render('connexion/apresConnexion.html.twig',[
+                            'session'=>$_SESSION
+                        ]);
+                    }
+                }else{
+                    $error = "Votre mot de passe est erroné ";
+                }
             }
-
-            if ($result === "Incorrect password") {
-                $error = "Incorrect password";
-            }
-
-           if(isset($result['id'])){
-                $_SESSION['is_connected'] = true;
-                $_SESSION['id'] = $result['id'];
-                $_SESSION['nom'] = $result['nom'];
-                $_SESSION['email'] = $result['email'];
-               return $this->twig->render('accueil_apres_connexion/apresConnexion.html.twig');
-           }
         }
         return $this->twig->render('Login/login.html.twig', ['error' => $error]);
     }
@@ -47,4 +52,13 @@ class LoginController extends AbstractController
         session_destroy();
         header('Location: /login/login');
     }
+
+    //
+    public function connexion(){
+        return $this->twig->render('connexion/apresConnexion.html.twig',[
+            'session'=>$_SESSION
+        ]);
+    }
+
+
 }

@@ -4,3 +4,9 @@ body
     background-attachment: fixed;
 
 }
+div.inline-button{
+    display: flex;
+    margin-bottom: 12px;
+}
+
+

@@ -7,7 +7,7 @@
             {% if error %}
                 <div class="bg bg-danger w-100"> {{ error }}</div>
             {% endif %}
-            <form method="POST">
+            <form method="POST" >
                 <div class="form-group">
                     <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10 col-md-12 col-sm-12">
@@ -24,8 +24,8 @@
                 </div>
                 <div class=" pb-3 pt-3">
                     <button type="submit" name="login" class="btn btn-outline-dark  " value="login">Connectez-vous</button>
+                    <a href="/Users/register" class="btn btn-outline-dark">Page inscription</a>
                 </div>
-                <a href="/Users/register" class="btn btn-outline-dark">Page inscription</a>
             </form>
         </div>
     </div>

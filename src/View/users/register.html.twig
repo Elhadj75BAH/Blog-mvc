@@ -1,13 +1,28 @@
 {% extends'layout.html.twig' %}
 {% block content %}
-    <div class="container bg bg-white my-5 pt-5">
+    <div class="container bg bg-white  p-5">
         <h2 class="text-center">Inscrivez-vous </h2>
+        <hr>
+        {% if inscriptionsucces %}
+            <div class="alert alert-danger " role="alert"> {{ inscriptionsucces }}</div>
+        {% endif %}
     <form method="post" role="form">
-        <div class="mb-3">
-            <label for="exampleInputNom" class="form-label">Votre Nom</label>
-            <input type="text" class="form-control" id="exampleInputNom" aria-describedby="nomHelp" name="nom">
-            <div id="emailHelp" class="form-text"></div>
+        <div class="row">
+            <div class="col
+">
+                <label for="exampleInputNom" class="form-label">Votre Nom</label>
+                <input type="text" class="form-control" id="exampleInputNom" aria-describedby="nomHelp" name="nom">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+
+            <div class="col">
+                <label for="exampleInputPrenom" class="form-label">Votre Prénom</label>
+                <input type="text" class="form-control" id="exampleInputPrenom" aria-describedby="prenomHelp" name="prenom">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+
         </div>
+
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Votre adresse email</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">

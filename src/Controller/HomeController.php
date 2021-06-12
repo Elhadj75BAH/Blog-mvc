@@ -4,6 +4,8 @@
 
 namespace App\Controller;
 
+use App\Model\BlogPostManager;
+
 class HomeController extends AbstractController
 {
     /**
@@ -14,8 +16,23 @@ class HomeController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
+
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        $blogpostManager = new BlogPostManager();
+        $blogs = $blogpostManager->selectAll( 'date_creation','DESC');
+        return $this->twig->render('Home/index.html.twig',
+            ['blogs'=>$blogs]);
     }
+
+    public function show(int $id): string
+    {
+        $blogpostManager = new BlogPostManager();
+        $blogpost = $blogpostManager->selectOneById($id);
+
+        return $this->twig->render('Home/show.html.twig', [
+            'blogpost' => $blogpost
+        ]);
+    }
+
 }
