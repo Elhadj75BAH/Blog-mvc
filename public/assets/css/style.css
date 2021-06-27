@@ -1,6 +1,44 @@
 body
 {
-    background: url("../images/background_2.png");
+
+   /* background: url("../images/background_2.png");*/
+   background: url("../images/banniere.png");
+    /*background: url("../images/background_3.png");*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+
+}
+
+
+/**
+footer
+ */
+body.container {
+    position: relative;
+    min-height: 100vh;
+}
+
+footer.footer.mt-3 {
+    position: absolute;
+}
+
+.footer {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 50%;
+    margin-bottom: -20px;
+}
+
+/**
+fin footer
+ */
+
+.image_{
+    background: url("../images/Mecontacter_3.png");
     background-attachment: fixed;
 
 }
@@ -9,4 +47,56 @@ div.inline-button{
     margin-bottom: 12px;
 }
 
+/* Nav barre*/
+.navbar-light .navbar-nav .nav-link {
+    /* color: rgba(0,0,0,.55); */
+    color: white;
+}
 
+/* card profile*/
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+button:hover, a:hover {
+    opacity: 0.7;
+}
+ /* fin card profile*/
+
+
+
+/*.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    width: 100%;
+    /* padding-right: var(--bs-gutter-x,.75rem); */
+    /* padding-left: var(--bs-gutter-x,.75rem); */
+  /*  margin-right: auto;
+    margin-left: auto;
+}*/
