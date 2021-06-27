@@ -25,7 +25,6 @@ class UsersManager extends AbstractManager
         VALUES (:nom, :prenom,:motdepasse, :email, :admin)");
         $statement->bindValue('nom', $user['nom'], \PDO::PARAM_STR);
         $statement->bindValue('prenom', $user['prenom'], \PDO::PARAM_STR);
-       // $statement->bindValue('motdepasse', $user['motdepasse'],  \PDO::PARAM_STR);
         $statement->bindValue('motdepasse',$motdepasse,  \PDO::PARAM_STR);// hachage de du mot de passe
         $statement->bindValue('email', $user['email'], \PDO::PARAM_STR);
         $statement->bindValue('admin', \PDO::PARAM_BOOL);

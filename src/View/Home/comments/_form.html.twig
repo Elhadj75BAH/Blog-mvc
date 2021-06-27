@@ -1,0 +1,17 @@
+{# TODO : manage errors display #}
+<div class="container bg-light">
+    <form method="post">
+        <input type="hidden" value="{{ comment.ID }}" name="id"><br>
+        <div class="row">
+            <textarea   name="contenu"  placeholder="Contenu ici ..." rows="5" required>{{ comment.contenu}}  </textarea><br>
+        </div>
+        <br>
+         {#  <div class="row">
+            <input type="datetime-local" class="w-25" value="{{ comment.Date_creation|date('d-m-Y H:i:s') }}" name="date_creation"><br>
+        </div>#}
+        <br>
+        <div class="row">
+            <input type="submit" class="btn btn-danger w-25" value="Envoyer" >
+        </div>
+    </form>
+</div>

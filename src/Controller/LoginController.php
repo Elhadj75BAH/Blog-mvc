@@ -1,7 +1,10 @@
 <?php
 namespace App\Controller;
 
+use App\Model\BlogPostManager;
+use App\Model\CommentManager;
 use App\Model\UsersManager;
+use Hoa\Iterator\Limit;
 
 /**
  * Class LoginController
@@ -12,7 +15,6 @@ class LoginController extends AbstractController
     // Login
     public function login()
     {
-
         $error = '';
         $userManager = new UsersManager();
 
@@ -33,13 +35,13 @@ class LoginController extends AbstractController
                         $_SESSION['nom'] = $result['nom'];
                         $_SESSION['prenom'] = $result['prenom'];
                         $_SESSION['email'] = $result['email'];
-                        //echo 'vous êtes connecté '.$_SESSION['nom'];
-                        return $this->twig->render('connexion/apresConnexion.html.twig',[
-                            'session'=>$_SESSION
-                        ]);
+                        //session admin
+                        $_SESSION['admin']=$result['admin'];
+
+                        header('Location: /Login/connexion/');
                     }
                 }else{
-                    $error = "Votre mot de passe est erroné ";
+                    $error = "Votre mot de passe ou email est erroné ";
                 }
             }
         }
@@ -50,13 +52,45 @@ class LoginController extends AbstractController
     {
         session_unset();
         session_destroy();
-        header('Location: /login/login');
+        header('Location: /home/page_accueil');
     }
 
-    //
+    //ESPACE USER
     public function connexion(){
+        //si connecté et le role est admin
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+            //traitement d'affichage  pour  commentaire
+            $commentManager = new CommentManager();
+            $comments = $commentManager->selectAll('date_creation','DESC');
+            //traitement d'affichage pour  commentaire
+            //button validator comment
+            if (isset($_POST['status'])==true) {
+                // do this
+            }
+            //fin button validator comment
+            //gestion blogpost
+            $blogpostManager = new BlogPostManager();
+            $blogs = $blogpostManager->selectAll();
+            //fin gestion blogpost
+
+            //liste des articles espace Home
+            $articleManager = new BlogPostManager();
+            $articles = $articleManager->selectAll('date_creation','DESC LIMIT 6');
+            //fin liste des article Home
+            return $this->twig->render('connexion/apresConnexion.html.twig',[
+                'session'=>$_SESSION,
+                'comments'=>$comments,
+                'blogs'=>$blogs,
+                'articles'=>$articles
+            ]);
+        }
+        //liste des article Home
+        $articleManager = new BlogPostManager();
+        $articles = $articleManager->selectAll('date_creation','DESC LIMIT 6');
+        //fin liste des article Home
         return $this->twig->render('connexion/apresConnexion.html.twig',[
-            'session'=>$_SESSION
+            'session'=>$_SESSION,
+            'articles'=>$articles
         ]);
     }
 

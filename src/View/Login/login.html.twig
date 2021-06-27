@@ -5,7 +5,10 @@
         <div class="form_register" >
             <h1 class="text-center">Connectez-vous</h1>
             {% if error %}
-                <div class="bg bg-danger w-100"> {{ error }}</div>
+                <div class="bg bg-danger text-light w-100 p-2"> {{ error }}</div>
+            {% endif %}
+            {% if success %}
+                <div class="bg bg-success text-light w-100 p-2"> {{ success }}</div>
             {% endif %}
             <form method="POST" >
                 <div class="form-group">
@@ -23,8 +26,8 @@
                     </div>
                 </div>
                 <div class=" pb-3 pt-3">
-                    <button type="submit" name="login" class="btn btn-outline-dark  " value="login">Connectez-vous</button>
-                    <a href="/Users/register" class="btn btn-outline-dark">Page inscription</a>
+                    <button type="submit" name="login" class="btn btn-outline-dark  " value="login">Je me connecte</button>
+                    <a href="/Users/register" class="btn btn-outline-dark my-3">Page inscription</a>
                 </div>
             </form>
         </div>

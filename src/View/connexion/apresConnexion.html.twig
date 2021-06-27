@@ -1,28 +1,151 @@
 {% extends'layout_log_html.twig' %}
 {% block content %}
     <div class="container bg-light p-4">
-        <h1 class="text-center">Bienvenue sur votre espace <span class="text-danger"> {{ session.nom }} {{ session.prenom }}</span></h1>
+        <h2 class="text-center "><span class="text-muted">Heureux de vous accueillir</span>  <span class="text-danger text-decoration-underline "> {{ session.nom }} {{ session.prenom }}</span></h2>
     </div>
 
-    <div class="row">
+    <div class="row ">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action " id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+                <a class="list-group-item list-group-item-action " id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                    </svg> Accueil
+                </a>
+                <a class="list-group-item list-group-item-action " id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile"><i class="fas fa-user-tie"></i>
+                    Profil
+                </a>
+                {% if comments %}
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat-right-dots-fill" viewBox="0 0 16 16">
+                        <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353V2zM5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </svg> Commentaire <span class=" badge bg-danger">{{ comments|length }}</span>
+                </a>
+                {% endif %}
+                {% if blogs %}
+                <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-diff-fill" viewBox="0 0 16 16">
+                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8 6a.5.5 0 0 1 .5.5V8H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V9H6a.5.5 0 0 1 0-1h1.5V6.5A.5.5 0 0 1 8 6zm-2.5 6.5A.5.5 0 0 1 6 12h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                    </svg> Article
+                </a>
+                {% endif %}
             </div>
         </div>
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">OK ILS S'AGIT D'UN TEST </div>
-                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"> TEST 2</div>
-                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">TEST 3</div>
-                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">TEST 5</div>
+                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                    {# ici insertion page les liste des articles article  #}
+                     <div class="container bg bg-white pb-4">
+                         {# Liste des articles #}
+                         <h3 class="text-center  pt-5"> Articles récemment postés</h3>
+                         <hr>
+                         <div class="row row-cols-1 row-cols-md-2 g-4">
+                             {% for articles in articles %}
+                                 <div class="col">
+                                     <div class="card ">
+                                         <img src="https://i.postimg.cc/J0QdtGCF/for-paris.png" class="card-img-top" alt="...">
+                                         <div class="card-body">
+                                             <h5 class="card-title">{{ articles.Titre }}</h5>
+                                             <p class="card-text "><span class="bold">Crée le :</span>{{ articles.Date_creation|date('d-m-Y H:i:s') }}</p>
+                                             <p>{{ articles.Chapo }}</p>
+                                             <a href="/Home/show/{{ articles.ID }}" class="btn btn-danger "><i class="fab fa-readme"></i> lire</a>
+                                         </div>
+                                     </div>
+                                 </div>
+                             {% endfor %}
+                         </div>
+                     </div>
+                    {# fin insertion page liste des article #}
+                </div>
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                    {# ici #}
+                    <div class="bg-white p-5">
+                        <hr>
+                        <strong>Votre Nom : </strong>{{ session.nom }}<br>
+                        <strong>Votre Prénom : </strong>{{ session.prenom }}<br>
+                        <strong>Votre email : </strong>{{ session.email }}<br>
+                        {#<strong>Rôle : </strong>{{ session.admin }}#}
+                    </div>
+                    {# fin #}
+                </div>
+                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                    <table class="table bg-white">
+                        <thead class="bg-danger text-light">
+                        <tr>
+                            <th>Commentaire</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        {# si utilisateur est admin on affiche  #}
+                        {% if comments %}
+                        <tbody>
+                          {% for comments in comments %}
+                              <tr>
+                                  <td>{{ comments.contenu }}</td>
+                                  <td>
+                                      <div class="form-check form-switch">
+                                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="{{ comments.status }}">
+                                          <label class="form-check-label" for="flexSwitchCheckDefault">valider</label>
+                                      </div>
+                                  </td>
+                              </tr>
+                         {% endfor %}
+                        </tbody>
+                        {# fin condition  #}
+                        {% endif %}
+                    </table>
+                </div>
+
+                {% if blogs %}
+                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                    {# ici gestion blog post #}
+                    <div class="container bg bg-light table-responsive ">
+                        <h3 class="text-center pt-5">Gestion des articles</h3>
+                        <hr>
+                        <a href="/blogpost/add" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                            </svg> Créer un article</a>
+                        <hr>
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for blog in blogs%}
+                                <tr>
+                                    <th scope="row">{{ blog.ID }}</th>
+                                    <td>{{ blog.Titre }}</td>
+                                    <td>{{ blog.Date_creation|date('d-m-Y H:i:s') }}</td>
+                                    <td><a href="/blogpost/show/{{ blog.ID }}" class="btn btn-outline-dark">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                            </svg> Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <td>Rien à afficher</td>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                    {# fin blog post #}
+                </div>
+                {% endif %}
+                {# fin condition pour les articles #}
             </div>
         </div>
     </div>
-
 
 
 

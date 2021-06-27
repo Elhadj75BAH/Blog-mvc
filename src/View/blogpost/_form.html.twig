@@ -16,11 +16,15 @@
     </div>
     <br>
     <div class="row">
+        <input type="text" value="{{ blogpost.Auteur }}" name="auteur" placeholder="Auteur ..."><br>
+    </div>
+    <br>
+    <div class="row">
         <input type="datetime-local" class="w-25" value="{{ blogpost.Date_creation|date('d-m-Y H:i:s') }}" name="date_creation"><br>
     </div>
     <br>
     <div class="row">
-        <input type="submit" class="btn btn-primary w-25" value="Valider" >
+        <input type="submit" class="btn btn-success w-25" value="Valider" >
     </div>
 </form>
 </div>

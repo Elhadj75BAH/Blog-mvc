@@ -7,13 +7,44 @@
         <p> {{ blogpost.Chapo }}</p>
         <h2>Contenu</h2>
         <p> {{ blogpost.Contenu }}</p>
-        <p><strong>Crée le</strong>: {{ blogpost.Date_creation|date('d-m-Y H:i:s') }}</p>
-       {#  <div class="inline-button">
-            <a href="/blogpost/edit/{{ blogpost.ID }}" class="btn btn-outline-primary">Modifier</a>
-            <form action="/blogpost/delete/{{blogpost.ID}}" method="POST">
-                <button class="btn btn-outline-danger ">Supprimer</button>
-            </form>
-            <a href="/blogpost/index" class="btn btn-outline-dark ">Retour</a>
-        </div>#}
+        <p class="text-muted"><strong>Auteur:</strong> {{ blogpost.Auteur }}</p>
+        <p class="text-muted"><strong>Mise à jour le </strong>: {{ blogpost.Date_creation|date('d-m-Y H:i:s') }}</p>
+        <hr>
+        {#  <a href="#" class="btn btn-primary">Commenter</a>#}
+        {# ici commence accordion #}
+        <div class="accordion " id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        <a href="#" class="btn btn-danger"><i class="far fa-comments"></i> poster un commentaire</a>
+                    </button>
+
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        {# ici le formulaire commentaire #}
+                        {% include 'Home/comments/_form.html.twig' %}
+                        {# fin formulaire commentaire #}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# ici fini accordion #}
+
+        {# affichage des commentaires postés #}
+        <hr>
+        <div>
+            <strong class="text-bold">Commentaire.s</strong><small class="badge bg-danger">({{comments|length}})</small>
+        </div>
+        <br>
+ {% for comment in comments %}
+     <div class="border  p-2">
+         {{ comment.contenu }}<br>
+         <span><i class="fas fa-user-circle">Auteur</i></span>{{ comment.user_id }}<br>
+       <span class="text-muted">{{ comment.Date_creation|date('d-m-Y H:i:s') }} </span>
+     </div>
+     <br>
+  {% endfor %}
+
     </div>
 {% endblock %}

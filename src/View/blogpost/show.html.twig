@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_log_html.twig' %}
 
 {% block content %}
     <div class="bg bg-light p-4">
@@ -6,7 +6,8 @@
     <p>{{ blogpost.ID }}. {{ blogpost.Titre }}</p>
     <p> {{ blogpost.Chapo }}</p>
      <h2>Contenu</h2>
-    <p> {{ blogpost.Contenu }}</p>
+        <p> {{ blogpost.Contenu }}</p>
+        <p><span>Auteur:</span> {{ blogpost.Auteur }}</p>
     <p><strong>Crée le</strong>: {{ blogpost.Date_creation|date('d-m-Y H:i:s') }}</p>
     <div class="inline-button">
         <a href="/blogpost/edit/{{ blogpost.ID }}" class="btn btn-outline-primary">Modifier</a>

@@ -11,7 +11,7 @@ class UsersController extends AbstractController
 {
     public function register()
     {
-        $inscriptionsucces ="Inscription avec succès";
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST['nom'])&&!empty($_POST['prenom']) && !empty($_POST['motdepasse']) && !empty($_POST['email'])) {
                 $userManager = new UsersManager();
@@ -22,9 +22,11 @@ class UsersController extends AbstractController
                     'email' => $_POST['email'],
                 ];
                 $userManager->insert($user);
+                $inscriptionsucces =" Inscription avec succès !! ";
                //redirect vers la page de login
-                echo ($inscriptionsucces);
-                return $this->twig->render('Login/login.html.twig');
+                return $this->twig->render('Login/login.html.twig',[
+                    'success'=>$inscriptionsucces
+                ]);
             }
         }
         return $this->twig->render('users/register.html.twig');
@@ -49,12 +51,15 @@ class UsersController extends AbstractController
                 $sujet ='Contact De Elhadj BAH';
                 $message = "Message Elhadj BAH: " . $message . " contact email: " . $email;
                 $headers = "From: " . $from;
-
                 mail($to,$sujet,$message,$headers);
-                return $this->twig->render('users/succesContact.html.twig');
+
+                $this->twig->addGlobal('session',$_SESSION);
             }
+            return $this->twig->render('users/succesContact.html.twig');
         }
-        return $this->twig->render('users/contact.html.twig');
+        return $this->twig->render('users/contact.html.twig',[
+            'session'=>$_SESSION
+        ]);
     }
 
 
@@ -144,6 +149,5 @@ class UsersController extends AbstractController
             header('Location:/blogpost/index');
         }
     }
-
 
 }
