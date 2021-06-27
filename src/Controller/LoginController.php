@@ -1,7 +1,10 @@
 <?php
 namespace App\Controller;
 
+use App\Model\BlogPostManager;
+use App\Model\CommentManager;
 use App\Model\UsersManager;
+use Hoa\Iterator\Limit;
 
 /**
  * Class LoginController
@@ -9,7 +12,7 @@ use App\Model\UsersManager;
  */
 class LoginController extends AbstractController
 {
-    // Connexion
+    // Login
     public function login()
     {
         $error = '';
@@ -21,22 +24,26 @@ class LoginController extends AbstractController
                 'motdepasse' => $_POST['motdepasse']
             ];
             $result = $userManager->checkUserConnection($login);
+          // si pas de resultat
+            if (!$result) {
+                $error = "Aucun utilisateur  trouvé :)";
+            }else{// on verifie si le mot de passe entré est correct
+                if(password_verify($_POST['motdepasse'],$result['motdepasse'])){
+                    if(isset($result['id'])){
+                        $_SESSION['is_connected'] = true;
+                        $_SESSION['id'] = $result['id'];
+                        $_SESSION['nom'] = $result['nom'];
+                        $_SESSION['prenom'] = $result['prenom'];
+                        $_SESSION['email'] = $result['email'];
+                        //session admin
+                        $_SESSION['admin']=$result['admin'];
 
-            if ($result === "User not found") {
-                $error = "User not found";
+                        header('Location: /Login/connexion/');
+                    }
+                }else{
+                    $error = "Votre mot de passe ou email est erroné ";
+                }
             }
-
-            if ($result === "Incorrect password") {
-                $error = "Incorrect password";
-            }
-
-           if(isset($result['id'])){
-                $_SESSION['is_connected'] = true;
-                $_SESSION['id'] = $result['id'];
-                $_SESSION['nom'] = $result['nom'];
-                $_SESSION['email'] = $result['email'];
-               return $this->twig->render('accueil_apres_connexion/apresConnexion.html.twig');
-           }
         }
         return $this->twig->render('Login/login.html.twig', ['error' => $error]);
     }
@@ -45,6 +52,47 @@ class LoginController extends AbstractController
     {
         session_unset();
         session_destroy();
-        header('Location: /login/login');
+        header('Location: /home/page_accueil');
     }
+
+    //ESPACE USER
+    public function connexion(){
+        //si connecté et le role est admin
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+            //traitement d'affichage  pour  commentaire
+            $commentManager = new CommentManager();
+            $comments = $commentManager->selectAll('date_creation','DESC');
+            //traitement d'affichage pour  commentaire
+            //button validator comment
+            if (isset($_POST['status'])==true) {
+                // do this
+            }
+            //fin button validator comment
+            //gestion blogpost
+            $blogpostManager = new BlogPostManager();
+            $blogs = $blogpostManager->selectAll();
+            //fin gestion blogpost
+
+            //liste des articles espace Home
+            $articleManager = new BlogPostManager();
+            $articles = $articleManager->selectAll('date_creation','DESC LIMIT 6');
+            //fin liste des article Home
+            return $this->twig->render('connexion/apresConnexion.html.twig',[
+                'session'=>$_SESSION,
+                'comments'=>$comments,
+                'blogs'=>$blogs,
+                'articles'=>$articles
+            ]);
+        }
+        //liste des article Home
+        $articleManager = new BlogPostManager();
+        $articles = $articleManager->selectAll('date_creation','DESC LIMIT 6');
+        //fin liste des article Home
+        return $this->twig->render('connexion/apresConnexion.html.twig',[
+            'session'=>$_SESSION,
+            'articles'=>$articles
+        ]);
+    }
+
+
 }

@@ -1,0 +1,13 @@
+{% extends 'layout_log_html.twig' %}
+
+{% block content %}
+    <div class="bg bg-light p-3">
+
+        <h1>Editer le post {{ blogpost.Titre }}</h1>
+        <div>
+            {% include 'blogpost/_form.html.twig' %}
+            <br>
+            <a href="/blogpost/show/{{ blogpost.ID }}" class="btn btn-outline-dark">Retour</a>
+        </div>
+    </div>
+{% endblock %}

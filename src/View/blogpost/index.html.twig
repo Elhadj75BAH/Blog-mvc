@@ -1,0 +1,36 @@
+{% extends 'layout_log_html.twig' %}
+
+{% block content %}
+    <div class="container bg bg-light  ">
+        <h1>La liste des posts</h1>
+        <a href="/blogpost/add" class="btn btn-info">Ajouter</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Contenu</th>
+                <th scope="col">chapot</th>
+                <th scope="col">date</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for blog in blogs%}
+            <tr>
+                <th scope="row">{{ blog.ID }}</th>
+                <td>{{ blog.Titre }}</td>
+                <td class="text-truncate" style="max-width: 200px">{{ blog.Contenu }}</td>
+                <td>{{ blog.Chapo }}</td>
+                <td>{{ blog.Date_creation|date('d-m-Y H:i:s') }}</td>
+                <td><a href="/blogpost/show/{{ blog.ID }}" class="btn btn-outline-dark">Voir</a></td>
+            </tr>
+            {% else %}
+                <td>Rien à afficher</td>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}

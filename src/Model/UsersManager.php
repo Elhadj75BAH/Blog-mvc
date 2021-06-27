@@ -4,10 +4,12 @@
 namespace App\Model;
 
 
+use _HumbugBox5ccdb2ccdb35\phpDocumentor\Reflection\DocBlock\Tags\Param;
+
 class UsersManager extends AbstractManager
 {
 
-    const TABLE = 'users';
+    const TABLE = 'Utilisateurs';
 
     public function __construct()
     {
@@ -16,35 +18,31 @@ class UsersManager extends AbstractManager
 
     public function insert(array $user): int
     {
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`nom`, `motdepasse`, `email`,`admin`) 
-        VALUES (:nom, :motdepasse, :email, :admin)");
+        //HACHAGE DU MOT DE PASS
+        $motdepasse = password_hash($_POST['motdepasse'],PASSWORD_DEFAULT);
+
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`nom`, `prenom`,`motdepasse`, `email`,`admin`) 
+        VALUES (:nom, :prenom,:motdepasse, :email, :admin)");
         $statement->bindValue('nom', $user['nom'], \PDO::PARAM_STR);
-        $statement->bindValue('motdepasse', $user['motdepasse'], \PDO::PARAM_STR);
+        $statement->bindValue('prenom', $user['prenom'], \PDO::PARAM_STR);
+        $statement->bindValue('motdepasse',$motdepasse,  \PDO::PARAM_STR);// hachage de du mot de passe
         $statement->bindValue('email', $user['email'], \PDO::PARAM_STR);
         $statement->bindValue('admin', \PDO::PARAM_BOOL);
 
         if ($statement->execute()) {
             return (int)$this->pdo->lastInsertId();
         }
+
     }
 
 
     public function checkUserConnection($login)
     {
-        $statement = $this->pdo->prepare("SELECT * FROM users WHERE email=:email");
+        $statement = $this->pdo->prepare("SELECT * FROM Utilisateurs WHERE email=:email");
 
         $statement->bindValue('email', $login['email'], \PDO::PARAM_STR);
         $statement->execute();
         $result = $statement->fetch();
-        if (!empty($result)) {
-            if ($result['motdepasse'] === $login['motdepasse']) {
-                return $result;
-            } else {
-                return "Incorrect password";
-            }
-        } else {
-            return 'User not found';
-        }
+        return $result;
     }
-
 }

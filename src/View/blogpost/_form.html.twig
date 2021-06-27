@@ -1,0 +1,30 @@
+{# TODO : manage errors display #}
+<div class="container bg-light">
+<form method="post">
+
+    <div class="row">
+        <input type="text" value="{{ blogpost.Titre }}" name="titre" placeholder="Titre ..."><br>
+    </div>
+    <br>
+    <div class="row">
+        <input type="text" value="{{ blogpost.Chapo }}" name="chapo" placeholder="Chapo ..."><br>
+    </div>
+    <br>
+    <input type="hidden" value="{{ blogpost.ID }}" name="id"><br>
+    <div class="row">
+        <textarea   name="contenu" placeholder="Contenu ici ..." rows="8">{{ blogpost.Contenu }}</textarea><br>
+    </div>
+    <br>
+    <div class="row">
+        <input type="text" value="{{ blogpost.Auteur }}" name="auteur" placeholder="Auteur ..."><br>
+    </div>
+    <br>
+    <div class="row">
+        <input type="datetime-local" class="w-25" value="{{ blogpost.Date_creation|date('d-m-Y H:i:s') }}" name="date_creation"><br>
+    </div>
+    <br>
+    <div class="row">
+        <input type="submit" class="btn btn-success w-25" value="Valider" >
+    </div>
+</form>
+</div>
