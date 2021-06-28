@@ -67,6 +67,7 @@ class LoginController extends AbstractController
             if (isset($_POST['status'])==true) {
                 // do this
             }
+
             //fin button validator comment
             //gestion blogpost
             $blogpostManager = new BlogPostManager();
@@ -92,6 +93,22 @@ class LoginController extends AbstractController
             'session'=>$_SESSION,
             'articles'=>$articles
         ]);
+    }
+
+    // DELETE COMMENT
+    /**
+     * Delete a specific comment
+     */
+    public function delete(int $id)
+    {
+        //si connecté et rôle est admin
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $comments = new CommentManager();
+                $comments->delete($id);
+                header('Location:/login/connexion');
+            }
+        }//
     }
 
 

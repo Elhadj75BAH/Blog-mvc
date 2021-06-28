@@ -32,8 +32,6 @@ class CommentManager extends AbstractManager
         $statement->bindValue('status', 0,\PDO::PARAM_BOOL);
         $statement->bindValue('article_id',$comment['article_id'],\PDO::PARAM_STR);
         $statement->bindValue('user_id', intval($comment['user_id']), \PDO::PARAM_INT);
-        //$statement->bindValue('user_id', intval($comment['user_id']), \PDO::PARAM_INT);
-       // $statement->bindValue('user_id',$comment['user_id'],\PDO::PARAM_STR);
         // ici fin
         if ($statement->execute()) {
             return (int)$this->pdo->lastInsertId();
@@ -44,7 +42,7 @@ class CommentManager extends AbstractManager
     public function getComments(int $id)
     {
         // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE article_id=:id");
+        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE article_id=:id AND status=0 ORDER BY id DESC");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -60,18 +58,27 @@ class CommentManager extends AbstractManager
      */
     public function update(array $comment):bool
     {
-
         // prepared request
         $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `contenu` = :contenu,`date_creation` = :date_creation, `status` = :status  WHERE id=:id");
         $statement->bindValue('id', $comment['id'], \PDO::PARAM_INT);
         $statement->bindValue('contenu', $comment['contenu'], \PDO::PARAM_STR);
-        $statement->bindValue('date_creation',$comment['date_creation'],\PDO::PARAM_STR);
-        $statement->bindValue('status', 1,\PDO::PARAM_BOOL);
-        //$statement->bindValue('article_id',$comment['article_id'],\PDO::PARAM_STR);
-       // $statement->bindValue('user_id',$comment['user_id'],\PDO::PARAM_STR);
-       // $statement->bindValue('id_utilisateur', $comment['id_utilisateur'],\PDO::PARAM_STR);
-
+        $statement->bindValue('status', 0,\PDO::PARAM_BOOL);
+        $statement->bindValue('article_id',$comment['article_id'],\PDO::PARAM_STR);
+        $statement->bindValue('user_id', intval($comment['user_id']), \PDO::PARAM_INT);
 
         return $statement->execute();
     }
+
+    // DELETE
+    /**
+     * @param int $id
+     */
+    public function delete(int $id): void
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
 }
