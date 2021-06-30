@@ -42,10 +42,38 @@ class CommentManager extends AbstractManager
     public function getComments(int $id)
     {
         // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE article_id=:id AND status=0 ORDER BY id DESC");
+        $statement = $this->pdo->prepare("SELECT * FROM  " . static::TABLE . " WHERE article_id=:id   AND status=1 ORDER BY id DESC");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
+        return $statement->fetchAll();
+    }
+//
+
+//status
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+//fin active
+
+// inner join
+
+    public function getCommentsUser(int $id){
+        $statement = $this->pdo->prepare("SELECT Utilisateurs.nom,Utilisateurs.prenom, Commentaires.contenu, Commentaires.Date_creation 
+                                                FROM Utilisateurs 
+                                                INNER JOIN Commentaires
+                                                ON Commentaires.user_id = Utilisateurs.id  WHERE article_id=:id  AND status=1 ORDER BY Commentaires.id DESC " );
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
         return $statement->fetchAll();
     }
 //

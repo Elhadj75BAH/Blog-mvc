@@ -39,9 +39,10 @@
         <br>
  {% for comment in comments %}
      <div class="border  p-2">
-         {{ comment.contenu }}<br>
-         <span><i class="fas fa-user-circle">Auteur</i></span>{{ comment.user_id }}<br>
-       <span class="text-muted">{{ comment.Date_creation|date('d-m-Y H:i:s') }} </span>
+         <i class="fa fa-angle-double-left text-muted"></i> {{ comment.contenu }} <i class="fa fa-angle-double-right text-muted"></i>
+         <hr class="w-25 text-danger">
+         <span><i class="fas fa-user-circle"></i></span>{{ comment.nom}} {{ comment.prenom }}<br>
+         <span class="text-muted pt-2"><i class="far fa-calendar-alt"></i> {{ comment.Date_creation|date('d-m-Y H:i:s') }} </span>
      </div>
      <br>
   {% endfor %}
