@@ -45,6 +45,8 @@
          <span class="text-muted pt-2"><i class="far fa-calendar-alt"></i> {{ comment.Date_creation|date('d-m-Y H:i:s') }} </span>
      </div>
      <br>
+     {% else %}
+         <p class="text-muted">Aucun commentaire sur cet article actuellement :-)</p>
   {% endfor %}
 
     </div>

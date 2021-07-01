@@ -4,14 +4,16 @@
 
 Le projet est de développer un blog professionnel en PHP. 
 
-En utilisant la structure MVC (Model View Controller )
+En utilisant la structure MVC (Model View Controller)
 
 
 ## Steps
 
 1.Clonez le dépôt depuis Github.
-2. taper  `composer install` sur votre terminal .
-3. Créez *config/db.php* à partir du fichier *config/db.php.dist* et ajoutez vos paramètres de base de données. NE Pas supprimer le fichier *.dist* 
+
+2. Installez les dépendances du projet avec   `composer install` .
+   
+3. Créez *config/db.php* à partir du fichier *config/db.php.dist* et ajoutez vos paramètres de base de données. 
 ```php
 define('APP_DB_HOST', 'your_db_host');
 define('APP_DB_NAME', 'your_db_name');
@@ -31,4 +33,4 @@ Si vous développez sous Windows, vous devez éditer votre configuration git pou
 
 
 
-![Simple MVC.png](https://raw.githubusercontent.com/WildCodeSchool/simple-mvc/master/Simple%20-%20MVC.png)
+
