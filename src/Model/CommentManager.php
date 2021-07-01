@@ -50,24 +50,11 @@ class CommentManager extends AbstractManager
     }
 //
 
-//status
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-//fin active
 
 // inner join
 
-    public function getCommentsUser(int $id){
+    public function getCommentsUser(int $id)
+    {
         $statement = $this->pdo->prepare("SELECT Utilisateurs.nom,Utilisateurs.prenom, Commentaires.contenu, Commentaires.Date_creation 
                                                 FROM Utilisateurs 
                                                 INNER JOIN Commentaires
@@ -76,6 +63,28 @@ class CommentManager extends AbstractManager
         $statement->execute();
         return $statement->fetchAll();
     }
+
+    // join BlogPost
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getBlogpostComment()
+    {
+        $statement = $this->pdo->prepare("SELECT BlogPost.Titre,Commentaires.id, Commentaires.contenu, Utilisateurs.email
+                                                FROM Commentaires
+                                                INNER JOIN BlogPost
+                                                ON Commentaires.article_id=BlogPost.ID
+                                                INNER JOIN Utilisateurs
+                                                ON Commentaires.user_id=Utilisateurs.id ORDER BY Commentaires.id DESC ");
+       // $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+
 //
 
 
@@ -107,6 +116,30 @@ class CommentManager extends AbstractManager
         $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
+    }
+
+    // validate a comment
+    /**
+     * @param int $id
+     */
+    public function validStatus($id){
+      //  $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET  `status`=1  WHERE id=:id");
+       $statement = $this->pdo->prepare("UPDATE Commentaires SET status=1 WHERE id=:id");
+       $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        return $statement->execute();
+    }
+    //fin
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    //  Deactivate a comment
+    public function desactiveComments($id)
+    {
+        $statement = $this->pdo->prepare("UPDATE Commentaires SET status=0 WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        return $statement->execute();
     }
 
 }

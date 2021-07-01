@@ -46,11 +46,11 @@ class HomeController extends AbstractController
         //traitement d'affichage pour  commentaire
 
         //si connecté
-            if ($_SESSION['is_connected'] === true) {
+            if (isset($_SESSION['is_connected']) && $_SESSION['is_connected'] === true){
                 //HERE COMMENT
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     //ici
-                    if (!empty($_POST['contenu'])) {
+                    if (!empty($_POST['contenu'])){
                         if (isset($_POST)) {
                             $commentManager = new CommentManager();
                             $comment = [
@@ -64,11 +64,10 @@ class HomeController extends AbstractController
                         header('Location:/Home/show/' . $id);
                     }//END COMMENT
                 }//End connected
-
-                return $this->twig->render('Home/show.html.twig', [
-                    'blogpost' => $blogpost,
-                    'comments' => $comments
-                ]);
             }
-        }
+        return $this->twig->render('Home/show.html.twig', [
+            'blogpost' => $blogpost,
+            'comments' => $comments
+        ]);
+    }
 }

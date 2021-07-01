@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Model\BlogPostManager;
 use App\Model\CommentManager;
 use App\Model\UsersManager;
-use Hoa\Iterator\Limit;
 
 /**
  * Class LoginController
@@ -17,30 +16,29 @@ class LoginController extends AbstractController
     {
         $error = '';
         $userManager = new UsersManager();
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = [
                 'email' => $_POST['email'],
                 'motdepasse' => $_POST['motdepasse']
             ];
             $result = $userManager->checkUserConnection($login);
-          // si pas de resultat
+            // si pas de resultat
             if (!$result) {
                 $error = "Aucun utilisateur  trouvé :)";
-            }else{// on verifie si le mot de passe entré est correct
-                if(password_verify($_POST['motdepasse'],$result['motdepasse'])){
-                    if(isset($result['id'])){
+            } else {// on verifie si le mot de passe entré est correct
+                if (password_verify($_POST['motdepasse'], $result['motdepasse'])) {
+                    if (isset($result['id'])) {
                         $_SESSION['is_connected'] = true;
                         $_SESSION['id'] = $result['id'];
                         $_SESSION['nom'] = $result['nom'];
                         $_SESSION['prenom'] = $result['prenom'];
                         $_SESSION['email'] = $result['email'];
                         //session admin
-                        $_SESSION['admin']=$result['admin'];
+                        $_SESSION['admin'] = $result['admin'];
 
                         header('Location: /Login/connexion/');
                     }
-                }else{
+                } else {
                     $error = "Votre mot de passe ou email est erroné ";
                 }
             }
@@ -56,19 +54,15 @@ class LoginController extends AbstractController
     }
 
     //ESPACE USER
-    public function connexion(){
+    public function connexion()
+    {
         //si connecté et le role est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
-            //traitement d'affichage  pour  commentaire
-            $commentManager = new CommentManager();
-            $comments = $commentManager->selectAll('date_creation','DESC');
-            //traitement d'affichage pour  commentaire
-            //button validator comment
-            if (isset($_POST['status'])==true) {
-                // do this
-            }
+            //traitement d'affichage  liste detaillés des commentaires
+             $commentManager = new CommentManager();
+             $comments = $commentManager->getBlogpostComment();
+            // Fin traitement d'affichage liste detaillés des commentaire
 
-            //fin button validator comment
             //gestion blogpost
             $blogpostManager = new BlogPostManager();
             $blogs = $blogpostManager->selectAll();
@@ -82,7 +76,7 @@ class LoginController extends AbstractController
                 'session'=>$_SESSION,
                 'comments'=>$comments,
                 'blogs'=>$blogs,
-                'articles'=>$articles
+                'articles'=>$articles,
             ]);
         }
         //liste des article Home
@@ -91,7 +85,7 @@ class LoginController extends AbstractController
         //fin liste des article Home
         return $this->twig->render('connexion/apresConnexion.html.twig',[
             'session'=>$_SESSION,
-            'articles'=>$articles
+            'articles'=>$articles,
         ]);
     }
 
@@ -104,8 +98,31 @@ class LoginController extends AbstractController
         //si connecté et rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $comments = new CommentManager();
-                $comments->delete($id);
+                $commentDelete = new CommentManager();
+                $commentDelete->delete($id);
+                header('Location:/login/connexion');
+            }
+        }//
+    }
+    // VALIDATION
+    public function valideComment(int $id){
+        //si connecté et rôle est admin
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $commentValide = new CommentManager();
+                $commentValide->validStatus($id);
+                header('Location:/login/connexion');
+            }
+        }//
+    }
+
+    // DESACTIVE COMMENT
+    public function desactiveComment(int $id){
+        //si connecté et rôle est admin
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $commentDesactive = new CommentManager();
+                $commentDesactive->desactiveComments($id);
                 header('Location:/login/connexion');
             }
         }//

@@ -4,7 +4,7 @@
         <h2 class="text-center "><span class="text-muted">Heureux de vous accueillir</span>  <span class="text-danger text-decoration-underline "> {{ session.nom }} {{ session.prenom }}</span></h2>
     </div>
 
-    <div class="row ">
+    <div class="row table-responsive">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action " id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
@@ -65,31 +65,37 @@
                         <strong>Votre Nom : </strong>{{ session.nom }}<br>
                         <strong>Votre Prénom : </strong>{{ session.prenom }}<br>
                         <strong>Votre email : </strong>{{ session.email }}<br>
-                        {#<strong>Rôle : </strong>{{ session.admin }}#}
                     </div>
                     {# fin #}
                 </div>
                 <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-                    <table class="table bg-white">
+                    <table class="table bg-white table-hover table-responsive">
                         <thead class="bg-danger text-light">
                         <tr>
+                            <th>Titre Article</th>
                             <th>Commentaire</th>
+                            <th>Email </th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         {# si utilisateur est admin on affiche  #}
                         {% if comments %}
-                        <tbody>
+                        <tbody class="table align-middle">
                           {% for comments in comments %}
                               <tr>
-                                  <td>{{ comments.contenu }}</td>
+                                  <td class="fw-bold">{{ comments.Titre }}</td>
+                                  <td>" {{ comments.contenu }} "</td>
+                                  <td>{{ comments.email }}</td>
+
                                   <td>
-                                      <div class="form-check form-switch">
-                                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="{{ comments.status }}">
-                                          <label class="form-check-label" for="flexSwitchCheckDefault">valider</label>
-                                      </div>
+                                      <form action="/login/valideComment/{{comments.id }}" method="POST">
+                                          <button class="btn btn-outline-primary">Activer</button>
+                                      </form>
                                       <form action="/login/delete/{{comments.id}}" method="POST">
                                           <button class="btn btn-outline-danger "><i class="fas fa-trash-alt"></i></button>
+                                      </form>
+                                      <form action="/login/desactiveComment/{{comments.id}}" method="POST">
+                                          <button class="btn btn-outline-dark "><i class="fas fa-eye-slash"></i></button>
                                       </form>
                                   </td>
                               </tr>
@@ -136,7 +142,7 @@
                                     </td>
                                 </tr>
                             {% else %}
-                                <td>Rien à afficher</td>
+                                <td> Rien à afficher</td>
                             {% endfor %}
                             </tbody>
 
