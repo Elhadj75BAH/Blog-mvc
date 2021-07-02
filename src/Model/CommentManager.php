@@ -72,7 +72,7 @@ class CommentManager extends AbstractManager
      */
     public function getBlogpostComment()
     {
-        $statement = $this->pdo->prepare("SELECT BlogPost.Titre,Commentaires.id, Commentaires.contenu, Utilisateurs.email
+        $statement = $this->pdo->prepare("SELECT BlogPost.Titre,Commentaires.id, Commentaires.contenu, Commentaires.status, Utilisateurs.email
                                                 FROM Commentaires
                                                 INNER JOIN BlogPost
                                                 ON Commentaires.article_id=BlogPost.ID

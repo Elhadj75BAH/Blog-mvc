@@ -65,6 +65,7 @@
                         <strong>Votre Nom : </strong>{{ session.nom }}<br>
                         <strong>Votre Prénom : </strong>{{ session.prenom }}<br>
                         <strong>Votre email : </strong>{{ session.email }}<br>
+                        <strong>Votre rôle : </strong>{{ session.admin ?'Admin':'Utilisateur' }}<br>
                     </div>
                     {# fin #}
                 </div>
@@ -75,6 +76,7 @@
                             <th>Titre Article</th>
                             <th>Commentaire</th>
                             <th>Email </th>
+                            <th>Publié</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -83,9 +85,10 @@
                         <tbody class="table align-middle">
                           {% for comments in comments %}
                               <tr>
-                                  <td class="fw-bold">{{ comments.Titre }}</td>
+                                  <td class="fw-bold text-muted">{{ comments.Titre }}</td>
                                   <td>" {{ comments.contenu }} "</td>
-                                  <td>{{ comments.email }}</td>
+                                  <td class="text-muted">{{ comments.email }}</td>
+                                  <td class="text-danger fw-bold">{{ comments.status ? 'Oui':'Non'  }}</td>
 
                                   <td>
                                       <form action="/login/valideComment/{{comments.id }}" method="POST">
