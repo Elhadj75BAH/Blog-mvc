@@ -30,6 +30,7 @@ define('APP_DB_PWD', 'your_db_password');
 Si vous développez sous Windows, vous devez éditer votre configuration git pour changer vos règles de fin de ligne avec cette commande :
 
 `git config --global core.autocrlf true`
+[Diagramme_du_projet.pdf](https://github.com/Elhadj75BAH/Blog-mvc/files/6759187/Diagramme_du_projet.pdf)
 
 
 
