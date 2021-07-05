@@ -61,13 +61,13 @@ class HomeController extends AbstractController
                             ];
                             $commentManager->insertComment($comment);
                         }
-                        header('Location:/Home/show/' . $id);
+                       header('Location:/Home/show/' . $id);
                     }//END COMMENT
                 }//End connected
             }
         return $this->twig->render('Home/show.html.twig', [
             'blogpost' => $blogpost,
-            'comments' => $comments
+            'comments' => $comments,
         ]);
     }
 }

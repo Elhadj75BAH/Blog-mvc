@@ -19,9 +19,9 @@ body.container {
     min-height: 100vh;
 }
 
-footer.footer.mt-3 {
+/*footer.footer.mt-3 {
     position: absolute;
-}
+}*/
 
 .footer {
     position: relative;

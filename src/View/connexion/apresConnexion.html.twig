@@ -6,7 +6,7 @@
 
     <div class="row table-responsive">
         <div class="col-4">
-            <div class="list-group" id="list-tab" role="tablist">
+            <div class="list-group table-responsive" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action " id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
@@ -27,7 +27,7 @@
                 <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-diff-fill" viewBox="0 0 16 16">
                         <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8 6a.5.5 0 0 1 .5.5V8H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V9H6a.5.5 0 0 1 0-1h1.5V6.5A.5.5 0 0 1 8 6zm-2.5 6.5A.5.5 0 0 1 6 12h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                    </svg> Article
+                    </svg> Article <span class=" badge bg-danger"> {{ blogs|length }}</span>
                 </a>
                 {% endif %}
             </div>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
                     <table class="table bg-white table-hover table-responsive">
-                        <thead class="bg-danger text-light">
+                        <thead class="bg-danger text-light text-center">
                         <tr>
                             <th>Titre Article</th>
                             <th>Commentaire</th>
@@ -82,23 +82,27 @@
                         </thead>
                         {# si utilisateur est admin on affiche  #}
                         {% if comments %}
-                        <tbody class="table align-middle">
+                        <tbody class="table text-justify">
                           {% for comments in comments %}
                               <tr>
                                   <td class="fw-bold text-muted">{{ comments.Titre }}</td>
-                                  <td>" {{ comments.contenu }} "</td>
+                                  <td> {{ comments.contenu }}</td>
                                   <td class="text-muted">{{ comments.email }}</td>
                                   <td class="text-danger fw-bold">{{ comments.status ? 'Oui':'Non'  }}</td>
 
-                                  <td>
+                                  <td class="d-flex">
+                                      {% if comments.status == false %}
                                       <form action="/login/valideComment/{{comments.id }}" method="POST">
-                                          <button class="btn btn-outline-primary">Activer</button>
+                                          <button class="btn btn-outline-success" title="Activer" ><i class="fas fa-eye"></i></button>
                                       </form>
+                                      {% endif %}
+                                      {% if comments.status == true %}
+                                          <form action="/login/desactiveComment/{{comments.id}}" method="POST">
+                                              <button class="btn btn-outline-dark " title="Désactiver"><i class="fas fa-eye-slash" title="Désactiver"></i></button>
+                                          </form>
+                                      {% endif %}
                                       <form action="/login/delete/{{comments.id}}" method="POST">
-                                          <button class="btn btn-outline-danger "><i class="fas fa-trash-alt"></i></button>
-                                      </form>
-                                      <form action="/login/desactiveComment/{{comments.id}}" method="POST">
-                                          <button class="btn btn-outline-dark "><i class="fas fa-eye-slash"></i></button>
+                                          <button class="btn btn-outline-danger" title="Supprimer"><i class="fas fa-trash-alt" title="Supprimer"></i></button>
                                       </form>
                                   </td>
                               </tr>
