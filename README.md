@@ -32,7 +32,7 @@ Si vous développez sous Windows, vous devez éditer votre configuration git pou
 `git config --global core.autocrlf true`
 
 
-### SITE BLOC 
+### SITE MVC Blog en PHP
 
 ![homepage](https://user-images.githubusercontent.com/52566974/124477841-c8501a80-dda4-11eb-893e-93b0b956542a.png)
 
@@ -41,6 +41,9 @@ Si vous développez sous Windows, vous devez éditer votre configuration git pou
 ![login](https://user-images.githubusercontent.com/52566974/124477174-000a9280-dda4-11eb-9705-f75839a5ca5b.png)
 
 ![espace_admin](https://user-images.githubusercontent.com/52566974/124478664-b8850600-dda5-11eb-8407-778a4a223271.png)
+
+![admin_commentaire](https://user-images.githubusercontent.com/52566974/124483513-b7a2a300-ddaa-11eb-9b17-cf510e82344e.png)
+
 
 
 
