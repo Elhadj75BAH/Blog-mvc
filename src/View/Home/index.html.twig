@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="container bg bg-white pb-4">
+     {# Liste des articles #}
+     <h1 class="text-center  pt-5">Liste des artilces</h1>
+     <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for blogs in blogs %}
+               <div class="col">
+                    <div class="card ">
+                         <img src="https://i.postimg.cc/J0QdtGCF/for-paris.png" class="card-img-top" alt="...">
+                         <div class="card-body">
+                              <h5 class="card-title">{{ blogs.Titre }}</h5>
+                              <p class="card-text  text-muted"><span class="bold">Publié le </span>{{ blogs.Date_creation|date('d-m-Y H:i:s') }}</p>
+                              <p>{{ blogs.Chapo }}</p>
+                              <a href="/Home/show/{{ blogs.ID }}" class="btn btn-danger "><i class="fab fa-readme"></i> lire</a>
+                         </div>
+                    </div>
+               </div>
+          {% endfor %}
+     </div>
+</div>
+{% endblock %}

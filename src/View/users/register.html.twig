@@ -1,0 +1,39 @@
+{% extends'layout.html.twig' %}
+{% block content %}
+    <div class="container bg bg-white  p-5">
+        <h2 class="text-center">Inscrivez-vous </h2>
+        <hr>
+        {% if inscriptionsucces %}
+            <div class="alert alert-danger " role="alert"> {{ inscriptionsucces }}</div>
+        {% endif %}
+    <form method="post" role="form">
+        <div class="row">
+            <div class="col">
+                <label for="exampleInputNom" class="form-label">Votre Nom</label>
+                <input type="text" class="form-control" id="exampleInputNom" aria-describedby="nomHelp" name="nom">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+
+            <div class="col">
+                <label for="exampleInputPrenom" class="form-label">Votre Prénom</label>
+                <input type="text" class="form-control" id="exampleInputPrenom" aria-describedby="prenomHelp" name="prenom">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Votre adresse email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+            <div id="emailHelp" class="form-text">Nous ne partagerons jamais votre e-mail avec qui que ce soit.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Votre mot de passe</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="motdepasse">
+            <div id="passwordHelp" class="form-text ">Ne communiquez jamais votre  mot de passe</div>
+        </div>
+        <button type="submit" class="btn btn-dark">Je m'enregistre</button>
+    </form>
+
+    </div>
+{% endblock %}
