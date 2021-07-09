@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Model\BlogPostManager;
@@ -50,7 +51,7 @@ class LoginController extends AbstractController
     {
         session_unset();
         session_destroy();
-        header('Location: /home/page_accueil');
+        header('Location: /home/pageAccueil');
     }
 
     //ESPACE USER
@@ -70,22 +71,21 @@ class LoginController extends AbstractController
 
             //liste des articles espace Home
             $articleManager = new BlogPostManager();
-            $articles = $articleManager->selectAll('date_creation','DESC LIMIT 6');
+            $articles = $articleManager->selectAll('date_creation', 'DESC LIMIT 6');
             //fin liste des article Home
-            return $this->twig->render('connexion/apresConnexion.html.twig',[
-                'session'=>$_SESSION,
-                'comments'=>$comments,
-                'blogs'=>$blogs,
-                'articles'=>$articles,
-            ]);
+            return $this->twig->render('connexion/apresConnexion.html.twig', ['session' => $_SESSION,
+                'comments' => $comments,
+                'blogs' => $blogs,
+                'articles' => $articles
+                ]);
         }
         //liste des article Home
         $articleManager = new BlogPostManager();
-        $articles = $articleManager->selectAll('date_creation','DESC LIMIT 6');
+        $articles = $articleManager->selectAll('date_creation', 'DESC LIMIT 6');
         //fin liste des article Home
-        return $this->twig->render('connexion/apresConnexion.html.twig',[
-            'session'=>$_SESSION,
-            'articles'=>$articles,
+        return $this->twig->render('connexion/apresConnexion.html.twig', [
+            'session' => $_SESSION,
+            'articles' => $articles,
         ]);
     }
 
@@ -105,7 +105,8 @@ class LoginController extends AbstractController
         }//
     }
     // VALIDATION
-    public function valideComment(int $id){
+    public function valideComment(int $id)
+    {
         //si connecté et rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -117,7 +118,8 @@ class LoginController extends AbstractController
     }
 
     // DESACTIVE COMMENT
-    public function desactiveComment(int $id){
+    public function desactiveComment(int $id)
+    {
         //si connecté et rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -127,6 +129,4 @@ class LoginController extends AbstractController
             }
         }//
     }
-
-
 }

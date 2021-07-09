@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Model\BlogPostManager;
 use App\Model\CommentManager;
 
-
 class BlogpostController extends AbstractController
 {
 
@@ -15,7 +14,7 @@ class BlogpostController extends AbstractController
     public function index(): string
     {
         //si connecté
-        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2){
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
             $blogpostManager = new BlogPostManager();
             $blogs = $blogpostManager->selectAll();
             return $this->twig->render('blogpost/index.html.twig', [
