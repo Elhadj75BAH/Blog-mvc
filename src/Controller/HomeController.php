@@ -64,6 +64,7 @@ class HomeController extends AbstractController
         return $this->twig->render('Home/show.html.twig', [
             'blogpost' => $blogpost,
             'comments' => $comments,
+            'session' => $_SESSION
         ]);
     }
 }

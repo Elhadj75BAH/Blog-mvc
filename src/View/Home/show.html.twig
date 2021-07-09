@@ -23,9 +23,13 @@
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
 
                     <div class="accordion-body">
-                        <small><i class="fa fa-info-circle fa-2x"></i> Laisser un commentaire necessite de  <a  href="/Login/login" > <small>se connecté</small></a></small>
+                        {% if session == false %}
+                        <small><i class="fa fa-info-circle fa-2x"></i> Laisser un commentaire necessite de  <a  href="/Login/login" > <small>se connecter</small></a></small>
+                        {% endif %}
                         {# ici le formulaire commentaire #}
+                        {% if session == true %}
                         {% include 'Home/comments/_form.html.twig' %}
+                        {% endif %}
                         {# fin formulaire commentaire #}
                     </div>
                 </div>
