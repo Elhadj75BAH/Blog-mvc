@@ -12,8 +12,10 @@ En utilisant la structure MVC (Model View Controller)
 1.Clonez le dépôt depuis Github.
 
 2. Installez les dépendances du projet avec   `composer install` .
+
+3. Inserez la base de donnés 'BlogMVCP5' au format sql que vous trouverez à la racine du projet. 
    
-3. Créez *config/db.php* à partir du fichier *config/db.php.dist* et ajoutez vos paramètres de base de données. 
+4. Créez *config/db.php* à partir du fichier *config/db.php.dist* et ajoutez vos paramètres de base de données. 
 ```php
 define('APP_DB_HOST', 'your_db_host');
 define('APP_DB_NAME', 'your_db_name');
@@ -21,8 +23,8 @@ define('APP_DB_USER', 'your_db_user_wich_is_not_root');
 define('APP_DB_PWD', 'your_db_password');
 ```
 
-4. Exécutez le serveur Web PHP interne avec  `php -S localhost:8000 -t public/`. l'option `-t` avec `public` comme paramètre signifie que votre hôte local ciblera le `/public` du dossier.
-5. Allez- y sur  `localhost:8000` avec votre navigateur préféré..
+5. Exécutez le serveur Web PHP interne avec  `php -S localhost:8000 -t public/`. l'option `-t` avec `public` comme paramètre signifie que votre hôte local ciblera le `/public` du dossier.
+6. Allez- y sur  `localhost:8000` avec votre navigateur préféré..
 
 
 ### Utilisateurs Windows
@@ -43,6 +45,8 @@ Si vous développez sous Windows, vous devez éditer votre configuration git pou
 ![espace_admin](https://user-images.githubusercontent.com/52566974/124478664-b8850600-dda5-11eb-8407-778a4a223271.png)
 
 ![admin_commentaire](https://user-images.githubusercontent.com/52566974/124483513-b7a2a300-ddaa-11eb-9b17-cf510e82344e.png)
+
+
 
 
 
