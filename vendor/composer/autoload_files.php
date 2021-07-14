@@ -18,7 +18,6 @@ return array(
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     '23c18046f52bef3eea034657bafda50f' => $vendorDir . '/symfony/polyfill-php81/bootstrap.php',
     '6cd5651c4fef5ed6b63e8d8b8ffbf3cc' => $vendorDir . '/amphp/byte-stream/lib/functions.php',
-    '9b38cf48e83f5d8f60375221cd213eee' => $vendorDir . '/phpstan/phpstan/bootstrap.php',
     '8dc56fe697ca93c4b40d876df1c94584' => $vendorDir . '/amphp/process/lib/functions.php',
     '3da389f428d8ee50333e4391c3f45046' => $vendorDir . '/amphp/serialization/src/functions.php',
     'bcb7d4fc55f4b1a7e10f5806723e9892' => $vendorDir . '/amphp/sync/src/functions.php',

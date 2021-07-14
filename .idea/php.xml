@@ -18,7 +18,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/vendor/amphp/parser" />
       <path value="$PROJECT_DIR$/vendor/amphp/sync" />
       <path value="$PROJECT_DIR$/vendor/amphp/byte-stream" />
