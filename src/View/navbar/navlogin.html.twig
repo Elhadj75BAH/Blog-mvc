@@ -12,12 +12,14 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/home/index">Liste article</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Login/connexion/">Mon espace</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="/login/logout"><i class="fas fa-power-off"></i> Se déconnecter</a>
-                </li>
+                {% if session.is_connected == true %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Login/connexion/">Mon espace</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/logout"><i class="fas fa-power-off"></i> Se déconnecter</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
