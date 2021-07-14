@@ -21,14 +21,6 @@ class BlogpostController extends AbstractController
                 'blogs' => $blogs,
             ]);
         }
-        //
-       /* $blogpostManager = new BlogPostManager();
-        $blogs = $blogpostManager->selectAll();
-        return $this->twig->render('blogpost/index.html.twig', [
-            'blogs' => $blogs,
-        ]);
-        //
-       */
     }
 
 
@@ -68,7 +60,6 @@ class BlogpostController extends AbstractController
                 // clean $_POST data
                 $blogpost = array_map('trim', $_POST);
 
-                // TODO validations (length, format...)
 
                 // if validation is ok, update and redirection
                 $blogpostManager->update($blogpost);
@@ -93,7 +84,6 @@ class BlogpostController extends AbstractController
                 // clean $_POST data
                 $blogpost = array_map('trim', $_POST);
 
-                // TODO validations (length, format...)
 
                 // if validation is ok, insert and redirection
                 $blogpostManager = new BlogPostManager();
@@ -121,9 +111,4 @@ class BlogpostController extends AbstractController
         }//
     }
 
-
-
-    //ICI
-
-    //
 }
