@@ -27,11 +27,7 @@ define('APP_DB_PWD', 'your_db_password');
 6. Allez- y sur  `localhost:8000` avec votre navigateur préféré..
 
 
-### Utilisateurs Windows
 
-Si vous développez sous Windows, vous devez éditer votre configuration git pour changer vos règles de fin de ligne avec cette commande :
-
-`git config --global core.autocrlf true`
 
 
 ### SITE MVC Blog en PHP
