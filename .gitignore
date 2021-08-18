@@ -2,4 +2,4 @@ vendor
 .idea
 .phpcs-cache
 coverage
-/config/db.php
+config/db.php
