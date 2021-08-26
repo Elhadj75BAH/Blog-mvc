@@ -16,6 +16,5 @@
       <option name="CUSTOM_RULESET_PATH" value="$PROJECT_DIR$/phpcs.xml" />
       <option name="EXTENSIONS" value="php,js,css,inc" />
     </inspection_tool>
-    <inspection_tool class="PhpStanGlobal" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
   </profile>
 </component>
