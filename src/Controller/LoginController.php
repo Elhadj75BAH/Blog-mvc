@@ -58,7 +58,7 @@ class LoginController extends AbstractController
     public function connexion()
     {
         //si connecté et le role est admin
-        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             //traitement d'affichage  liste detaillés des commentaires
              $commentManager = new CommentManager();
              $comments = $commentManager->getBlogpostComment();
@@ -96,7 +96,7 @@ class LoginController extends AbstractController
     public function delete(int $id)
     {
         //si connecté et rôle est admin
-        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $commentDelete = new CommentManager();
                 $commentDelete->delete($id);
@@ -108,7 +108,7 @@ class LoginController extends AbstractController
     public function valideComment(int $id)
     {
         //si connecté et rôle est admin
-        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $commentValide = new CommentManager();
                 $commentValide->validStatus($id);
@@ -121,7 +121,7 @@ class LoginController extends AbstractController
     public function desactiveComment(int $id)
     {
         //si connecté et rôle est admin
-        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 2) {
+        if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $commentDesactive = new CommentManager();
                 $commentDesactive->desactiveComments($id);
