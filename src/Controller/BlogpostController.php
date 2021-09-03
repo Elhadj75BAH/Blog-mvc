@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\BlogPostManager;
 use App\Model\CommentManager;
+//use App\Model\BlogPost;
 
 class BlogpostController extends AbstractController
 {
@@ -19,6 +20,7 @@ class BlogpostController extends AbstractController
             $blogs = $blogpostManager->selectAll();
             return $this->twig->render('blogpost/index.html.twig', [
                 'blogs' => $blogs,
+                'session' =>$_SESSION
             ]);
         }
     }
@@ -41,7 +43,8 @@ class BlogpostController extends AbstractController
 
             return $this->twig->render('blogpost/show.html.twig', [
                 'blogpost' => $blogpost,
-                'comments' => $comments
+                'comments' => $comments,
+                'session' =>$_SESSION
             ]);
         }//
     }
@@ -68,6 +71,7 @@ class BlogpostController extends AbstractController
 
             return $this->twig->render('blogpost/edit.html.twig', [
                 'blogpost' => $blogpost,
+                'session' =>$_SESSION
             ]);
         }//
     }
@@ -91,7 +95,7 @@ class BlogpostController extends AbstractController
                 header('Location:/blogpost/show/' . $id);
             }
 
-            return $this->twig->render('blogpost/add.html.twig');
+            return $this->twig->render('blogpost/add.html.twig',['session' =>$_SESSION]);
         }//
     }
 
