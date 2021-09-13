@@ -70,10 +70,10 @@ class CommentManager extends AbstractManager
      */
     public function getBlogpostComment()
     {
-        $statement = $this->pdo->prepare("SELECT BlogPost.Titre,Commentaires.id, Commentaires.contenu, Commentaires.status, Utilisateurs.email
+        $statement = $this->pdo->prepare("SELECT Article.Titre,Commentaires.id, Commentaires.contenu, Commentaires.status, Utilisateurs.email
                                                 FROM Commentaires
-                                                INNER JOIN BlogPost
-                                                ON Commentaires.article_id=BlogPost.ID
+                                                INNER JOIN Article
+                                                ON Commentaires.article_id=Article.ID
                                                 INNER JOIN Utilisateurs
                                                 ON Commentaires.user_id=Utilisateurs.id ORDER BY Commentaires.id DESC ");
        // $statement->bindValue('id', $id, \PDO::PARAM_INT);

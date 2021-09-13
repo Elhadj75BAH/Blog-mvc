@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class BlogPost
+class Article
 {
     private $ID;
     private $Titre;
