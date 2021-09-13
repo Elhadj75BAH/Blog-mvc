@@ -7,7 +7,7 @@ namespace App\Model;
  */
 class BlogPostManager extends AbstractManager
 {
-    public const TABLE = 'BlogPost';
+    public const TABLE = 'Article';
 
     /**
      *  Initializes this class.
@@ -67,5 +67,16 @@ class BlogPostManager extends AbstractManager
         $statement->bindValue('auteur', $blogpost['auteur'], \PDO::PARAM_STR);
 
         return $statement->execute();
+    }
+
+
+    public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
+    {
+        $query = 'SELECT * FROM ' . static::TABLE;
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
+
+        return $this->pdo->query($query)->fetchAll();
     }
 }

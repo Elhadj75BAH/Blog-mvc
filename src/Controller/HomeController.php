@@ -20,14 +20,14 @@ class HomeController extends AbstractController
     {
         //date du jour
         $datej = mktime(0, 0, 0, date("m"), date("d"), date("y"));
-        return $this->twig->render('Home/accueil.html.twig', ['datej' => $datej]);
+        return $this->twig->render('Home/accueil.html.twig', ['datej' => $datej,'session'=>$_SESSION]);
     }
 
     public function index()
     {
-        $blogpostManager = new BlogPostManager();
-        $blogs = $blogpostManager->selectAll('date_creation', 'DESC');
-        return $this->twig->render('Home/index.html.twig', ['blogs' => $blogs]);
+            $blogpostManager = new BlogPostManager();
+            $blogs = $blogpostManager->selectAll('date_creation', 'DESC');
+            return $this->twig->render('Home/index.html.twig', ['blogs' => $blogs,'session' => $_SESSION,]);
     }
 
     public function show(int $id): string
