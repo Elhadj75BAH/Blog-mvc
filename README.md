@@ -23,8 +23,8 @@ define('APP_DB_USER', 'your_db_user_wich_is_not_root');
 define('APP_DB_PWD', 'your_db_password');
 ```
 
-5. Exécutez le serveur Web PHP interne avec  `php -S localhost:8000 -t public/`. l'option `-t` avec `public` comme paramètre signifie que votre hôte local ciblera le `/public` du dossier.
-6. Allez- y sur  `localhost:8000` avec votre navigateur préféré..
+5. Exécutez le serveur Web PHP interne avec  `php -S localhost:8000 -t public`. 
+6. Allez- y sur  `localhost:8000` avec votre navigateur préféré.
 
 
 
