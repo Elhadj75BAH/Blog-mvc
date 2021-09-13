@@ -12,7 +12,7 @@ class BlogpostController extends AbstractController
     /**
      * List blogposts
      */
-    public function index(): string
+    public function index(): ?string
     {
         //si connecté
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
@@ -23,6 +23,7 @@ class BlogpostController extends AbstractController
                 'session' =>$_SESSION
             ]);
         }
+        
     }
 
 
