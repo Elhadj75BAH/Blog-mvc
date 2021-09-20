@@ -26,11 +26,11 @@ class CommentManager extends AbstractManager
     public function insertComment(array $comment): int
     {
         // prepared request
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`contenu`,`date_creation`, `status`,`article_id`,`user_id`) VALUES (:contenu, NOW(),  :status, :article_id, :user_id)");
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`contenu`,`date_creation`, `statut`,`article_id`,`utilisateur_id`) VALUES (:contenu, NOW(),  :statut, :article_id, :utilisateur_id)");
         $statement->bindValue('contenu', $comment['contenu'], \PDO::PARAM_STR);
-        $statement->bindValue('status', 0, \PDO::PARAM_BOOL);
+        $statement->bindValue('statut', 0, \PDO::PARAM_BOOL);
         $statement->bindValue('article_id', $comment['article_id'], \PDO::PARAM_STR);
-        $statement->bindValue('user_id', intval($comment['user_id']), \PDO::PARAM_INT);
+        $statement->bindValue('utilisateur_id', intval($comment['utilisateur_id']), \PDO::PARAM_INT);
         // ici fin
         if ($statement->execute()) {
             return (int)$this->pdo->lastInsertId();
@@ -41,7 +41,7 @@ class CommentManager extends AbstractManager
     public function getComments(int $id)
     {
         // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM  " . static::TABLE . " WHERE article_id=:id   AND status=1 ORDER BY id DESC");
+        $statement = $this->pdo->prepare("SELECT * FROM  " . static::TABLE . " WHERE article_id=:id   AND statut=1 ORDER BY id DESC");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -56,7 +56,7 @@ class CommentManager extends AbstractManager
         $statement = $this->pdo->prepare("SELECT Utilisateurs.nom,Utilisateurs.prenom, Commentaires.contenu, Commentaires.Date_creation 
                                                 FROM Utilisateurs 
                                                 INNER JOIN Commentaires
-                                                ON Commentaires.user_id = Utilisateurs.id  WHERE article_id=:id  AND status=1 ORDER BY Commentaires.id DESC ");
+                                                ON Commentaires.utilisateur_id = Utilisateurs.id  WHERE article_id=:id  AND statut=1 ORDER BY Commentaires.id DESC ");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll();
@@ -70,12 +70,12 @@ class CommentManager extends AbstractManager
      */
     public function getBlogpostComment()
     {
-        $statement = $this->pdo->prepare("SELECT Article.Titre,Commentaires.id, Commentaires.contenu, Commentaires.status, Utilisateurs.email
+        $statement = $this->pdo->prepare("SELECT Article.Titre,Commentaires.id, Commentaires.contenu, Commentaires.statut, Utilisateurs.email
                                                 FROM Commentaires
                                                 INNER JOIN Article
                                                 ON Commentaires.article_id=Article.ID
                                                 INNER JOIN Utilisateurs
-                                                ON Commentaires.user_id=Utilisateurs.id ORDER BY Commentaires.id DESC ");
+                                                ON Commentaires.utilisateur_id=Utilisateurs.id ORDER BY Commentaires.id DESC ");
        // $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -91,12 +91,12 @@ class CommentManager extends AbstractManager
     public function update(array $comment): bool
     {
         // prepared request
-        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `contenu` = :contenu,`date_creation` = :date_creation, `status` = :status  WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `contenu` = :contenu,`date_creation` = :date_creation, `statut` = :statut  WHERE id=:id");
         $statement->bindValue('id', $comment['id'], \PDO::PARAM_INT);
         $statement->bindValue('contenu', $comment['contenu'], \PDO::PARAM_STR);
-        $statement->bindValue('status', 0, \PDO::PARAM_BOOL);
+        $statement->bindValue('statut', 0, \PDO::PARAM_BOOL);
         $statement->bindValue('article_id', $comment['article_id'], \PDO::PARAM_STR);
-        $statement->bindValue('user_id', intval($comment['user_id']), \PDO::PARAM_INT);
+        $statement->bindValue('utilisateur_id', intval($comment['utilisateur_id']), \PDO::PARAM_INT);
 
         return $statement->execute();
     }
@@ -117,10 +117,10 @@ class CommentManager extends AbstractManager
     /**
      * @param int $id
      */
-    public function validStatus($id)
+    public function validstatus($id)
     {
-      //  $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET  `status`=1  WHERE id=:id");
-        $statement = $this->pdo->prepare("UPDATE Commentaires SET status=1 WHERE id=:id");
+      //  $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET  `statut`=1  WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE Commentaires SET statut=1 WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         return $statement->execute();
     }
@@ -133,7 +133,7 @@ class CommentManager extends AbstractManager
     //  Deactivate a comment
     public function desactiveComments($id)
     {
-        $statement = $this->pdo->prepare("UPDATE Commentaires SET status=0 WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE Commentaires SET statut=0 WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         return $statement->execute();
     }

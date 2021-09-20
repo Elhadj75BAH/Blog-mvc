@@ -88,15 +88,15 @@
                                   <td class="fw-bold text-muted">{{ comments.Titre }}</td>
                                   <td> {{ comments.contenu }}</td>
                                   <td class="text-muted">{{ comments.email }}</td>
-                                  <td class="text-danger fw-bold">{{ comments.status ? 'Oui':'Non'  }}</td>
+                                  <td class="text-danger fw-bold">{{ comments.statut ? 'Oui':'Non'  }}</td>
 
                                   <td class="d-flex">
-                                      {% if comments.status == false %}
+                                      {% if comments.statut == false %}
                                       <form action="/login/valideComment/{{comments.id }}" method="POST">
                                           <button class="btn btn-outline-success" title="Activer" ><i class="fas fa-eye"></i></button>
                                       </form>
                                       {% endif %}
-                                      {% if comments.status == true %}
+                                      {% if comments.statut == true %}
                                           <form action="/login/desactiveComment/{{comments.id}}" method="POST">
                                               <button class="btn btn-outline-dark " title="Désactiver"><i class="fas fa-eye-slash" title="Désactiver"></i></button>
                                           </form>
