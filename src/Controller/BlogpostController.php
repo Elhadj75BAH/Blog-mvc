@@ -37,11 +37,10 @@ class BlogpostController extends AbstractController
             $blogpostManager = new BlogPostManager();
             $blogpost = $blogpostManager->selectOneById($id);
 
-            //test commentaire
+            //Recuperation Commentaires
             $commentManager = new CommentManager();
             $comments = $commentManager->selectAll();
-            //test commentaire
-
+            
             return $this->twig->render('blogpost/show.html.twig', [
                 'blogpost' => $blogpost,
                 'comments' => $comments,
@@ -61,11 +60,8 @@ class BlogpostController extends AbstractController
             $blogpostManager = new BlogPostManager();
             $blogpost = $blogpostManager->selectOneById($id);
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // clean $_POST data
                 $blogpost = array_map('trim', $_POST);
-
-
-                // if validation is ok, update and redirection
+                
                 $blogpostManager->update($blogpost);
                 header('Location: /blogpost/show/' . $id);
             }
@@ -86,11 +82,8 @@ class BlogpostController extends AbstractController
         //si connecté et le rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // clean $_POST data
                 $blogpost = array_map('trim', $_POST);
-
-
-                // if validation is ok, insert and redirection
+                
                 $blogpostManager = new BlogPostManager();
                 $id = $blogpostManager->insert($blogpost);
                 header('Location:/blogpost/show/' . $id);
@@ -106,7 +99,6 @@ class BlogpostController extends AbstractController
      */
     public function delete(int $id)
     {
-        //si connecté et rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $blogpostManager = new BlogPostManager();

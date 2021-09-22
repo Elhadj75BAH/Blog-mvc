@@ -37,7 +37,6 @@ class HomeController extends AbstractController
 
         //traitement d'affichage  pour  commentaire
         $commentManager = new CommentManager();
-        //$comments = $commentManager->getComments($id);
          $comments = $commentManager->getCommentsUser($id);
         //traitement d'affichage pour  commentaire
 
@@ -53,7 +52,7 @@ class HomeController extends AbstractController
                             'contenu' => $_POST['contenu'],
                             //'status' => $_POST['status'],
                             'article_id' => $id,
-                            'user_id' => $_SESSION['id']
+                            'utilisateur_id' => $_SESSION['id']
                         ];
                         $commentManager->insertComment($comment);
                     }

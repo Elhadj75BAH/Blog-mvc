@@ -59,7 +59,6 @@
                     {# fin insertion page liste des article #}
                 </div>
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                    {# ici #}
                     <div class="bg-white p-5">
                         <hr>
                         <strong>Votre Nom : </strong>{{ session.nom }}<br>
@@ -67,7 +66,6 @@
                         <strong>Votre email : </strong>{{ session.email }}<br>
                         <strong>Votre rôle : </strong>{{ session.admin ?'Admin':'Utilisateur' }}<br>
                     </div>
-                    {# fin #}
                 </div>
                 <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
                     <table class="table bg-white table-hover table-responsive">
@@ -88,15 +86,15 @@
                                   <td class="fw-bold text-muted">{{ comments.Titre }}</td>
                                   <td> {{ comments.contenu }}</td>
                                   <td class="text-muted">{{ comments.email }}</td>
-                                  <td class="text-danger fw-bold">{{ comments.status ? 'Oui':'Non'  }}</td>
+                                  <td class="text-danger fw-bold">{{ comments.statut ? 'Oui':'Non'  }}</td>
 
                                   <td class="d-flex">
-                                      {% if comments.status == false %}
+                                      {% if comments.statut == false %}
                                       <form action="/login/valideComment/{{comments.id }}" method="POST">
                                           <button class="btn btn-outline-success" title="Activer" ><i class="fas fa-eye"></i></button>
                                       </form>
                                       {% endif %}
-                                      {% if comments.status == true %}
+                                      {% if comments.statut == true %}
                                           <form action="/login/desactiveComment/{{comments.id}}" method="POST">
                                               <button class="btn btn-outline-dark " title="Désactiver"><i class="fas fa-eye-slash" title="Désactiver"></i></button>
                                           </form>
@@ -108,9 +106,9 @@
                               </tr>
                          {% endfor %}
                         </tbody>
-                        {# fin condition  #}
                         {% endif %}
                     </table>
+                    {{ dump(comments) }}
                 </div>
 
                 {% if blogs %}
