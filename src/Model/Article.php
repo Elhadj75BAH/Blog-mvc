@@ -92,6 +92,11 @@ class Article
         $this->Date_creation = $Date_creation;
     }
 
+    public function __construct()
+    {
+        $this->Date_creation = new \DateTime();
+    }
+
     /**
      * @return mixed
      */

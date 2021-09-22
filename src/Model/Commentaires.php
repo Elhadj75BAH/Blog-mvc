@@ -7,9 +7,9 @@ class Commentaires
     private $id;
     private $contenu;
     private $Date_creation;
-    private $status;
+    private $statut;
     private $article_id;
-    private $user_id;
+    private $utilisateur_id;
 
     /**
      * @return mixed
@@ -62,17 +62,17 @@ class Commentaires
     /**
      * @return mixed
      */
-    public function getStatus()
+    public function getStatut()
     {
-        return $this->status;
+        return $this->statut;
     }
 
     /**
-     * @param mixed $status
+     * @param mixed $statut
      */
-    public function setStatus($status)
+    public function setStatut($statut): void
     {
-        $this->status = $status;
+        $this->statut = $statut;
     }
 
     /**
@@ -94,17 +94,17 @@ class Commentaires
     /**
      * @return mixed
      */
-    public function getUserId()
+    public function getUtilisateurId()
     {
-        return $this->user_id;
+        return $this->utilisateur_id;
     }
 
     /**
-     * @param mixed $user_id
+     * @param mixed $utilisateur_id
      */
-    public function setUserId($user_id)
+    public function setUtilisateurId(mixed $utilisateur_id)
     {
-        $this->user_id = $user_id;
+        $this->utilisateur_id = $utilisateur_id;
     }
 
     //function hydrate

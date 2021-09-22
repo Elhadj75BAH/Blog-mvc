@@ -25,11 +25,11 @@ class BlogPostManager extends AbstractManager
     public function insert(array $blogpost): int
     {
         // prepared request
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`titre`,`contenu`,`chapo`,`date_creation`,`auteur`) VALUES (:titre,:contenu,:chapo,:date_creation,:auteur)");
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`titre`,`contenu`,`chapo`,`date_creation`,`auteur`) VALUES (:titre,:contenu,:chapo,NOW(),:auteur)");
         $statement->bindValue('titre', $blogpost['titre'], \PDO::PARAM_STR);
         $statement->bindValue('contenu', $blogpost['contenu'], \PDO::PARAM_STR);
         $statement->bindValue('chapo', $blogpost['chapo'], \PDO::PARAM_STR);
-        $statement->bindValue('date_creation', $blogpost['date_creation'], \PDO::PARAM_STR);
+       // $statement->bindValue('date_creation', $blogpost['date_creation'], \PDO::PARAM_STR);
         $statement->bindValue('auteur', $blogpost['auteur'], \PDO::PARAM_STR);
 
         if ($statement->execute()) {
@@ -58,12 +58,12 @@ class BlogPostManager extends AbstractManager
     {
 
         // prepared request
-        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `titre` = :titre,`contenu`=:contenu,`chapo` =:chapo, `date_creation`=:date_creation, `auteur`=:auteur WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `titre` = :titre,`contenu`=:contenu,`chapo` =:chapo, `date_creation`=NOW(), `auteur`=:auteur WHERE id=:id");
         $statement->bindValue('id', $blogpost['id'], \PDO::PARAM_INT);
         $statement->bindValue('titre', $blogpost['titre'], \PDO::PARAM_STR);
         $statement->bindValue('contenu', $blogpost['contenu'], \PDO::PARAM_STR);
         $statement->bindValue('chapo', $blogpost['chapo'], \PDO::PARAM_STR);
-        $statement->bindValue('date_creation', $blogpost['date_creation'], \PDO::PARAM_STR);
+      //  $statement->bindValue('date_creation', $blogpost['date_creation'], \PDO::PARAM_STR);
         $statement->bindValue('auteur', $blogpost['auteur'], \PDO::PARAM_STR);
 
         return $statement->execute();
@@ -77,6 +77,18 @@ class BlogPostManager extends AbstractManager
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
 
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_CLASS);
     }
+
+
+    public function selectOneById(int $id)
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch(\PDO::PARAM_INT);
+    }
+
 }

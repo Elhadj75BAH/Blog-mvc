@@ -102,31 +102,30 @@ class LoginController extends AbstractController
                 $commentDelete->delete($id);
                 header('Location:/login/connexion');
             }
-        }//
+        }
     }
+    
     // VALIDATION
     public function valideComment(int $id)
     {
-        //si connecté et rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $commentValide = new CommentManager();
                 $commentValide->validStatus($id);
                 header('Location:/login/connexion');
             }
-        }//
+        }
     }
 
     // DESACTIVE COMMENT
     public function desactiveComment(int $id)
     {
-        //si connecté et rôle est admin
         if (isset($_SESSION) && $_SESSION['is_connected'] === true && $_SESSION['admin'] == 1) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $commentDesactive = new CommentManager();
                 $commentDesactive->desactiveComments($id);
                 header('Location:/login/connexion');
             }
-        }//
+        }
     }
 }

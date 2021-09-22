@@ -59,7 +59,6 @@
                     {# fin insertion page liste des article #}
                 </div>
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                    {# ici #}
                     <div class="bg-white p-5">
                         <hr>
                         <strong>Votre Nom : </strong>{{ session.nom }}<br>
@@ -67,7 +66,6 @@
                         <strong>Votre email : </strong>{{ session.email }}<br>
                         <strong>Votre rôle : </strong>{{ session.admin ?'Admin':'Utilisateur' }}<br>
                     </div>
-                    {# fin #}
                 </div>
                 <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
                     <table class="table bg-white table-hover table-responsive">
@@ -108,9 +106,9 @@
                               </tr>
                          {% endfor %}
                         </tbody>
-                        {# fin condition  #}
                         {% endif %}
                     </table>
+                    {{ dump(comments) }}
                 </div>
 
                 {% if blogs %}

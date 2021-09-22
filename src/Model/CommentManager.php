@@ -79,9 +79,9 @@ class CommentManager extends AbstractManager
        // $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
-        return $statement->fetchAll();
+        return $statement->fetchAll(\PDO::FETCH_CLASS,Commentaires::class);
     }
-
+//ici dans Mennu Commentaires backend
     //
 
     /**
